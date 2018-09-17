@@ -23,75 +23,75 @@ body {
 
 .dark-gray {
 	color: rgb(128, 128, 128);
-	text-shadow: 0px 0px 40px rgba(128, 128, 128, 1);
+	text-shadow: 0px 0px 10px rgba(128, 128, 128, 0.8);
 }
 
 .light-gray, #caret {
 	color: rgb(193, 193, 193);
-	text-shadow: 0px 0px 40px rgba(193, 193, 193, 1);
+	text-shadow: 0px 0px 10px rgba(193, 193, 193, 0.8);
 }
 
 .white {
 	color: rgb(255, 255, 255);
-	text-shadow: 0px 0px 40px rgba(255, 255, 255, 1);
+	text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.8);
 }
 
 .red {
 	color: rgb(128, 0, 0);
-	text-shadow: 0px 0px 40px rgba(128, 0, 0, 1);
+	text-shadow: 0px 0px 10px rgba(128, 0, 0, 0.8);
 }
 
 .green {
 	color: rgb(0, 128, 0);
-	text-shadow: 0px 0px 40px rgba(0, 128, 0, 1);
+	text-shadow: 0px 0px 10px rgba(0, 128, 0, 0.8);
 }
 
 .yellow {
 	color: rgb(128, 128, 0);
-	text-shadow: 0px 0px 40px rgba(128, 128, 0, 1);
+	text-shadow: 0px 0px 10px rgba(128, 128, 0, 0.8);
 }
 
 .blue {
 	color: rgb(0, 0, 128);
-	text-shadow: 0px 0px 40px rgba(0, 0, 128, 1);
+	text-shadow: 0px 0px 10px rgba(0, 0, 128, 0.8);
 }
 
 .magenta {
 	color: rgb(128, 0, 127);
-	text-shadow: 0px 0px 40px rgba(128, 0, 127, 1);
+	text-shadow: 0px 0px 10px rgba(128, 0, 127, 0.8);
 }
 
 .cyan {
 	color: rgb(0, 128, 128);
-	text-shadow: 0px 0px 40px rgba(0, 128, 128, 1);
+	text-shadow: 0px 0px 10px rgba(0, 128, 128, 0.8);
 }
 
 .light-red {
 	color: rgb(255, 0, 0);
-	text-shadow: 0px 0px 40px rgba(255, 0, 0, 1);
+	text-shadow: 0px 0px 10px rgba(255, 0, 0, 0.8);
 }
 
 .light-green {
 	color: rgb(0, 255, 0);
-	text-shadow: 0px 0px 40px rgba(0, 255, 0, 1);
+	text-shadow: 0px 0px 10px rgba(0, 255, 0, 0.8);
 }
 
 .light-yellow {
 	color: rgb(255, 255, 0);
-	text-shadow: 0px 0px 40px rgba(255, 255, 0, 1);
+	text-shadow: 0px 0px 10px rgba(255, 255, 0, 0.8);
 }
 
 .light-blue {
 	color: rgb(0, 0, 255);
-	text-shadow: 0px 0px 40px rgba(0, 0, 255, 1);
+	text-shadow: 0px 0px 10px rgba(0, 0, 255, 0.8);
 }
 
 .light-magenta {
 	color: rgb(255, 0, 255);
-	text-shadow: 0px 0px 40px rgba(255, 0, 255, 1);
+	text-shadow: 0px 0px 10px rgba(255, 0, 255, 0.8);
 }
 
 .light-cyan {
 	color: rgb(0, 255, 255);
-	text-shadow: 0px 0px 40px rgba(0, 255, 255, 1);
+	text-shadow: 0px 0px 10px rgba(0, 255, 255, 0.8);
 }

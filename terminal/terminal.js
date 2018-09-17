@@ -39,20 +39,23 @@ function Terminal(printDelay=5,printStep=5) {
 				str = cmd.str;
 				if (str) {
 
-					let regex = /\@\{((([a-z]*|[A-Z]*|[0-9]*|\-))*)\}(?!(\@))/gm;
+					//(?:[^\@]|^)(\@\{[\d\b\-]+\})
+
+					let regex = /(?:[^\@]|^)(\@\{((([a-z]*|[A-Z]*|[0-9]*|\-)))\})/gm;
 					let values = [];
 					let colorMatches = [];
 
 					while ((match = regex.exec(str)) != null) {
-						colorMatches.push(match);
+						colorMatches.push({text:match[1],index:match.index});
+						console.log(colorMatches[colorMatches.length-1]);
 					}
 
 					for (let i = 0; i < str.length; i++) {
 						for (let j = 0; j < colorMatches.length; j++) {
 							if(colorMatches[j].index == i){
-								i+= colorMatches[j][0].length;
+								i+= colorMatches[j].text.length;
 
-								let obj = {color:colorMatches[j][0].replace('@{','').replace('}','')};
+								let obj = {color:colorMatches[j].text.replace('@{','').replace('}','')};
 
 								values.push(obj);
 							}
@@ -202,7 +205,7 @@ function Terminal(printDelay=5,printStep=5) {
 			let biggest = 0;
 
 			for (let i = 0; i < strings.length; i++) {
-				let len = strings[i].replace(/\@\{((([a-z]*|[A-Z]*|[0-9]*|\-))*)\}(?!(\@))/gm,'').length
+				let len = strings[i].replace(/(?:[^\@])(\@\{((([a-z]*|[A-Z]*|[0-9]*|\-)))\})/gm,'').length
 				biggest = len > biggest ? len : biggest;
 			}
 
@@ -307,10 +310,15 @@ t.println("Colors");
 t.println("------------------------------\n")
 
 t.setColor("light-gray");
-t.println("So far, you can only print stuff via the developer console (F12 or CTRL+Shift+i).");
-t.println("You can also change the color of the text. The following functions are available:\n");
+t.println("In order to change the color of the text, call the function t.setColor(color).");
+t.println("'color' can be a number or the name of the color. The following colors are available:\n");
 
 for (let i = 0; i < t.colorList.length; i++) {
 	t.print("@{light-gray}"+ i +" > ");
 	t.println('@{'+i+'}'+t.colorList[i]);
 }
+
+t.setColor("light-gray");
+t.println("\nCalling setColor() will change the color of every text that follows it.");
+t.println("Alternatively, you can insert a setColor() in your printed string, by adding a\n");
+t.println("@{15}@@{color}");
