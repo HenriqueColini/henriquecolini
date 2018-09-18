@@ -41,21 +41,24 @@ function Terminal(printDelay=5,printStep=5) {
 
 					//(?:[^\@]|^)(\@\{[\d\b\-]+\})
 
-					let regex = /(?:[^\@]|^)(\@\{((([a-z]*|[A-Z]*|[0-9]*|\-)))\})/gm;
+					let regex = /(?:[^@]|^)(@\{[a-zA-Z0-9\-]*\})/gm;
 					let values = [];
 					let colorMatches = [];
 
 					while ((match = regex.exec(str)) != null) {
-						colorMatches.push({text:match[1],index:match.index});
-						console.log(colorMatches[colorMatches.length-1]);
+						if (match[0].charAt(0) != '@') {
+							match.index++;
+							match[0] = match[0].substr(1);
+						}
+						colorMatches.push(match);
 					}
 
 					for (let i = 0; i < str.length; i++) {
 						for (let j = 0; j < colorMatches.length; j++) {
 							if(colorMatches[j].index == i){
-								i+= colorMatches[j].text.length;
+								i+= colorMatches[j][0].length;
 
-								let obj = {color:colorMatches[j].text.replace('@{','').replace('}','')};
+								let obj = {color:colorMatches[j][0].replace('@{','').replace('}','')};
 
 								values.push(obj);
 							}
@@ -205,7 +208,11 @@ function Terminal(printDelay=5,printStep=5) {
 			let biggest = 0;
 
 			for (let i = 0; i < strings.length; i++) {
-				let len = strings[i].replace(/(?:[^\@])(\@\{((([a-z]*|[A-Z]*|[0-9]*|\-)))\})/gm,'').length
+				let string = strings[i];
+				for (let j = 0; j < this.colorList.length; j++){
+					string = string.replace(`@{${this.colorList[j]}}`,'');
+				}
+				let len = string.length;
 				biggest = len > biggest ? len : biggest;
 			}
 
@@ -254,6 +261,7 @@ function Terminal(printDelay=5,printStep=5) {
 
 			str+=lineAfter?'\n':'';
 
+			console.log(str);
 			this.print(str);
 
 		}
