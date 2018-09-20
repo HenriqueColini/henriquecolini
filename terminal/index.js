@@ -85,3 +85,28 @@ t.println("stopping a print in progress. To clear all the text and the queue, us
 t.setColor("light-green");
 t.println("Boxes");
 t.println("------------------------------\n");
+
+t.setColor("light-gray");
+t.println("The function printBox() is a helper function, purely for aesthetical reasons. It prints a box with");
+t.println("text inside. An example is the title of this page. The function is as follows:\n");
+
+t.println("@{3}t.printBox(content,boxColor,boxStyle,lineBefore,lineAfter)\n");
+
+t.setColor("light-gray");
+t.println("content - What will be inside the box. Either a string or an array of strings.");
+t.println("boxColor - The color of the box. May be a name or a number");
+t.println("boxStyle - The style of the box. It's either a string (see styles below) or an array of characters (see template below)");
+t.println("lineBefore - Prints a \\n before the box. Optional, defaults to @{6}true@{2}.");
+t.println("lineAfter - Prints a \\n after the box. Optional, defaults to @{6}true@{2}.\n");
+
+t.println("The style of the box is an array of the characters to be used. It follows the pattern:");
+
+t.printBox(["String A","String B"],"light-cyan","template");
+
+t.setColor("light-gray");
+t.println("\nThere are some predefined styles. To use these, just use a string with its name. The current styles are:");
+
+Object.forEach(t.boxStyles,function(obj,key){
+	t.println("\n"+key);
+	t.printBox(["String A","String B"],"light-cyan",key);
+});
