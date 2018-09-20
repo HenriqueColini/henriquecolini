@@ -20,7 +20,7 @@ function Terminal(printDelay=5,printStep=5) {
 					"light-magenta",
 					"light-cyan"];
 	this.commandQueue = [];
-	this.printDelay = printDelay>=0?printDelay:0;
+	this.printDelay = printDelay==0?0:(printDelay>=5?printDelay:5);
 	this.printStep = printStep>=1?printStep:1;
 	this.boxStyles = [];
 
@@ -41,24 +41,22 @@ function Terminal(printDelay=5,printStep=5) {
 
 					//(?:[^\@]|^)(\@\{[\d\b\-]+\})
 
-					let regex = /(?:[^@]|^)(@\{[a-zA-Z0-9\-]*\})/gm;
+					let regex = /@@+|(@{[a-z\d-]*})/g;
 					let values = [];
 					let colorMatches = [];
 
 					while ((match = regex.exec(str)) != null) {
-						if (match[0].charAt(0) != '@') {
-							match.index++;
-							match[0] = match[0].substr(1);
+						if (match[1]!==undefined) {
+							colorMatches.push({text:match[0],index:match.index});
 						}
-						colorMatches.push(match);
 					}
 
 					for (let i = 0; i < str.length; i++) {
 						for (let j = 0; j < colorMatches.length; j++) {
 							if(colorMatches[j].index == i){
-								i+= colorMatches[j][0].length;
+								i+= colorMatches[j].text.length;
 
-								let obj = {color:colorMatches[j][0].replace('@{','').replace('}','')};
+								let obj = {color:colorMatches[j].text.replace('@{','').replace('}','')};
 
 								values.push(obj);
 							}
@@ -76,9 +74,11 @@ function Terminal(printDelay=5,printStep=5) {
 
 					let cleared = false;
 
+					let commentRegex = /@@{([a-z\d-]*)}/g;
+
 					for (let i = 0; !cleared && i < values.length; i++) {
 						if (typeof values[i] === 'string') {
-							values[i] = values[i].replace('@@{','@{');
+							values[i] = values[i].replace(commentRegex,'@{$1}');
 							for (let j = 0; !cleared && j < values[i].length; j++) {
 								if (this.printDelay > 0 && j%this.printStep==0) {
 									await new Promise(resolve => setTimeout(resolve, this.printDelay));
@@ -276,57 +276,3 @@ function Terminal(printDelay=5,printStep=5) {
 	},500);
 
 }
-
-let t = new Terminal();
-
-t.printBox("terminal.js","light-blue","double_line",false)
-t.println();
-
-t.setColor("light-green");
-t.println("About");
-t.println("------------------------------\n")
-
-t.setColor("light-gray");
-t.println("terminal.js is a Windows CMD-like terminal made in JavaScript.\n");
-t.println("It doesn't actually do anything. You can't enter any commands - you may only print stuff to it.");
-t.println("Nonetheless, that's already pretty cool.\n")
-
-t.setColor("light-green");
-t.println("Usage");
-t.println("------------------------------\n")
-
-t.setColor("light-gray");
-t.println("So far, you can only print stuff via the developer console (F12 or CTRL+Shift+i).");
-t.println("You can also change the color of the text. The following functions are available:\n");
-
-t.println("@{3}t.print(content)@{1} > This will print content to the terminal.");
-t.println("@{3}t.println(content)@{1} > This will print content to the terminal with a '\\n' included.");
-t.println("@{3}t.setColor(color)@{1} > This change the color of the following text.");
-t.println("@{3}t.clear()@{1} > This will clear the terminal.");
-t.println("@{3}t.reset()@{1} > Similar to t.clear(), this will also clear the queue (more information below).");
-t.println("@{3}t.printBox(content,bc,bs,lb,la)@{1} > This will print a box (more information below).\n");
-
-t.setColor("light-gray");
-t.println("Those async functions are also available (more information below):\n");
-
-t.println("@{3}t.asyncPrint(content)@{1} > Asynchronized print().");
-t.println("@{3}t.asyncSetColor(color)@{1} > Asynchronized setColor().");
-t.println("@{3}t.asyncClear()@{1} > Asynchronized clear().\n");
-
-t.setColor("light-green");
-t.println("Colors");
-t.println("------------------------------\n")
-
-t.setColor("light-gray");
-t.println("In order to change the color of the text, call the function t.setColor(color).");
-t.println("'color' can be a number or the name of the color. The following colors are available:\n");
-
-for (let i = 0; i < t.colorList.length; i++) {
-	t.print("@{light-gray}"+ i +" > ");
-	t.println('@{'+i+'}'+t.colorList[i]);
-}
-
-t.setColor("light-gray");
-t.println("\nCalling setColor() will change the color of every text that follows it.");
-t.println("Alternatively, you can insert a setColor() in your printed string, by adding a\n");
-t.println("@{15}@@{color}");
