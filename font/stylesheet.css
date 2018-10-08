@@ -1,9 +1,0 @@
-@font-face {
-	font-family: 'IBMVGA8';
-    src: url('PxPlus_IBM_VGA8.ttf') format('truetype'),
-		 url('pxplus_ibm_vga8-webfont.woff2') format('woff2'),
-         url('pxplus_ibm_vga8-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-
-}
