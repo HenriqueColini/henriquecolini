@@ -1,0 +1,17 @@
+html, body, main {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background: url("images/stars.gif");
+}
+
+main {
+	background: black;
+	color: white;
+	width: 700px;
+	margin: 0 auto;
+	padding: 30px;
+}
